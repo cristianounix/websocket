@@ -1,0 +1,53 @@
+version: '3.7'
+
+services: 
+  nginx: 
+      build: 
+          dockerfile: ./nginx.dockerfile
+          context: .
+      image: nginx:latest
+      container_name: nginx
+      hostname: nginx
+      ports:
+          - 8020:8020
+      networks: 
+        - internal_net
+          # internal-network:
+          #     ipv4_address: 172.20.0.6      
+      # volumes:
+          # - ./nginx.conf/:/etc/nginx/nginx.conf
+      #     - ./client:/var/www
+      depends_on:
+          - app1
+          - app2
+
+  app1:
+    build: 
+        dockerfile: ./app.dockerfile
+        context: .
+    container_name: app1
+    hostname: app1
+    ports:
+      - 8011:8010
+    networks: 
+      - internal_net
+
+  app2:
+    build: 
+        dockerfile: ./app.dockerfile
+        context: .
+    container_name: app2
+    hostname: app2
+    ports:
+      - 8012:8010
+    networks: 
+      - internal_net
+
+
+networks: 
+  internal_net:
+    # internal-network:
+    #     driver: bridge
+    #     ipam:
+    #      config:
+    #        - subnet: 172.20.0.0/16
