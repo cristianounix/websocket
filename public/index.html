@@ -1,0 +1,27 @@
+<div id="content"></div>
+
+<button onclick="sendBla()">Send bla</button>
+
+<script type="text/javascript">  
+    var content = document.getElementById('content');
+    var socket = new WebSocket('ws://localhost:8020/ws');
+    socket.onopen = function () {
+        socket.send('GET MOST RECENT MESSAGE');
+    };
+
+    socket.onmessage = function (message) {
+        content.innerHTML += message.data +'<br />';
+    };
+    socket.onerror = function (error) {
+        console.log('WebSocket error: ' + error);
+    };
+    socket.onclose = function (error) {
+        console.log('Closed ' + error);
+    };
+    function sendBla() {
+        console.log(12312)
+        socket.send('Baaa')
+    }
+</script>
+
+
