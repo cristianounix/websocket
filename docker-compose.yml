@@ -14,9 +14,9 @@ services:
         - internal_net
           # internal-network:
           #     ipv4_address: 172.20.0.6      
-      # volumes:
-          # - ./nginx.conf/:/etc/nginx/nginx.conf
-      #     - ./client:/var/www
+      volumes:
+          - ./nginx.conf/:/etc/nginx/nginx.conf
+        # - ./public:/usr/share/nginx/html
       depends_on:
           - app1
           - app2
